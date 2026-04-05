@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Location = () => {
-  // Replace these URLs with your actual Google Maps embed links
-  const location1Url = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15585.447547708053!2d76.68367095!3d12.42555515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf7a0302187687%3A0x6e2e50529949635e!2sSrirangapatna%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1712250000000!5m2!1sen!2sin";
-  const location2Url = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15585.447547708053!2d76.68367095!3d12.42555515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf7a0302187687%3A0x6e2e50529949635e!2sSrirangapatna%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1712250000000!5m2!1sen!2sin";
+  // Updated with your exact Google Maps URLs
+  const location1Url = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d536.3760005694795!2d76.68301392544615!3d12.42742317503125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf77009e2fea13%3A0xfd3b9413bdd00f2c!2sSrirangapattana%20Ghat!5e1!3m2!1sen!2sin!4v1775379892260!5m2!1sen!2sin";
+  const location2Url = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3896.700512087775!2d76.70856367483127!3d12.402971387862545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baf76bf7bdac4d9%3A0xde55aa9713283297!2sDodda%20Gosai%20Ghat!5e0!3m2!1sen!2sin!4v1775379790949!5m2!1sen!2sin";
 
   return (
     <div id="location" className="py-20 bg-white">
