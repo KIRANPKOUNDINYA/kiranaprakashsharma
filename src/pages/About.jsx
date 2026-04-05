@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-// 1. Import the image directly from the assets folder
+// 1. Import the images directly from the assets folder
 import aboutImage from '../assets/positive_and_negatives.jpg';
+import bgImage from '../assets/kiranimage.png'; // Your photo
 
 // --- Custom Animated Counter Component ---
 const AnimatedCounter = ({ end, duration = 2000, suffix = "+" }) => {
@@ -64,18 +65,31 @@ const About = () => {
           />
         </div>
 
-        {/* Intro Section */}
-        <div className="text-center mb-16">
-          <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight sm:text-4xl">
-            "Where Ancient Vedic Wisdom Meets Modern Devotion"
-          </p>
-          <div className="mt-6 max-w-3xl mx-auto space-y-4 text-lg text-gray-600">
-            <p>
-              For over four decades, <strong>Kiranaprakashsharma</strong> has been the torchbearer of authentic Vedic rituals, blending scriptural precision with heartfelt devotion. Our lineage traces back to generations of Vedic scholars who have preserved these sacred traditions.
+        {/* --- Intro Section: Image above the text --- */}
+        <div className="mb-16">
+          
+          {/* Image placed above the text */}
+          <div className="mb-10 flex justify-center">
+            <img 
+              src={bgImage} 
+              alt="Kiranaprakashsharma" 
+              className="rounded-3xl shadow-xl max-h-[450px] w-full sm:w-auto object-cover border-4 border-orange-50"
+            />
+          </div>
+
+          <div className="text-center px-4 sm:px-0">
+            {/* Dark text for clear readability */}
+            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight sm:text-4xl text-gray-900">
+              "Where Ancient Vedic Wisdom Meets Modern Devotion"
             </p>
-            <p>
-              We bridge ancient traditions with modern accessibility, offering both in-person ceremonies in Srirangapatna.
-            </p>
+            <div className="mt-6 max-w-3xl mx-auto space-y-4 text-lg text-gray-700 font-medium">
+              <p>
+                For over four decades, <strong className="text-orange-600">Kiranaprakashsharma</strong> has been the torchbearer of authentic Vedic rituals, blending scriptural precision with heartfelt devotion. Our lineage traces back to generations of Vedic scholars who have preserved these sacred traditions.
+              </p>
+              <p>
+                We bridge ancient traditions with modern accessibility, offering both in-person ceremonies in Srirangapatna.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -163,7 +177,6 @@ const About = () => {
         </div>
 
         {/* CTA Buttons (Call + WhatsApp) */}
-        {/* CHANGED: Flex container stacks columns on mobile, side-by-side on larger screens */}
         <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
           <style>
             {`
@@ -196,7 +209,6 @@ const About = () => {
 
           {/* WhatsApp Button */}
           <a 
-            // URL Encoded message so WhatsApp reads the spaces and newlines correctly!
             href="https://wa.me/919513311293?text=Hii%20kiranaprakashsharma%20ji!%0Awe%20are%20looking%20for%20your%20service" 
             target="_blank" 
             rel="noopener noreferrer"
