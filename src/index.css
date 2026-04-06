@@ -115,3 +115,36 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* Enable smooth scrolling for the whole page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Define the bouncing animation */
+@keyframes sectionBounce {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-15px); /* Bounces up */
+  }
+  40% {
+    transform: translateY(10px);  /* Bounces down */
+  }
+  60% {
+    transform: translateY(-5px);  /* Bounces up slightly */
+  }
+  80% {
+    transform: translateY(3px);   /* Bounces down slightly */
+  }
+  100% {
+    transform: translateY(0);     /* Settles back to normal */
+  }
+}
+
+/* Apply the animation to any element with this class */
+.bounce-target {
+  /* 0.9s duration matches the 900ms timeout in your React code */
+  animation: sectionBounce 0.9s cubic-bezier(0.28, 0.84, 0.42, 1) forwards;
+}
