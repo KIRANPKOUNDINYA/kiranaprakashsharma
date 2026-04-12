@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-:root {
+/* :root {
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
@@ -114,37 +114,35 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
-}
+} */
 
-/* Enable smooth scrolling for the whole page */
+/* Enable smooth scrolling for the whole page
 html {
   scroll-behavior: smooth;
 }
 
-/* Define the bouncing animation */
+Define the bouncing animation
 @keyframes sectionBounce {
   0% {
     transform: translateY(0);
   }
   20% {
-    transform: translateY(-15px); /* Bounces up */
+    transform: translateY(-15px); 
   }
   40% {
-    transform: translateY(10px);  /* Bounces down */
+    transform: translateY(10px);  
   }
   60% {
-    transform: translateY(-5px);  /* Bounces up slightly */
+    transform: translateY(-5px);  
   }
   80% {
-    transform: translateY(3px);   /* Bounces down slightly */
+    transform: translateY(3px);  
   }
   100% {
-    transform: translateY(0);     /* Settles back to normal */
+    transform: translateY(0);    
   }
 }
 
-/* Apply the animation to any element with this class */
 .bounce-target {
-  /* 0.9s duration matches the 900ms timeout in your React code */
   animation: sectionBounce 0.9s cubic-bezier(0.28, 0.84, 0.42, 1) forwards;
-}
+} */

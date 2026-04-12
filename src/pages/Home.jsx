@@ -8,7 +8,8 @@ const Home = () => {
   return (
     <div 
       id="home" 
-      className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+      // Changed: Added lg:bg-[center_top_15%] to shift the image focus on desktop
+      className="relative min-h-screen flex items-center justify-center bg-cover bg-center lg:bg-[center_top_15%] bg-no-repeat"
       style={{ backgroundImage: `url(${bgImage})` }} 
     >
       {/* Semi-transparent overlay */}
