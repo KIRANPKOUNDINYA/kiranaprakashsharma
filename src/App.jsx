@@ -15,6 +15,21 @@ import { LanguageProvider, useLanguage } from './LanguageContext';
 
 const FloatingActions = () => {
   const { t } = useLanguage();
+  const chatUrl = 'https://cdn.botpress.cloud/webchat/v3.6/shareable.html?configUrl=https://files.bpcontent.cloud/2026/05/10/15/20260510151337-U6SIX4E4.json';
+
+  const openChatbot = () => {
+    const chatWindow = window.open(
+      chatUrl,
+      '_blank',
+      'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=420,height=720'
+    );
+
+    if (!chatWindow || chatWindow.closed || typeof chatWindow.closed === 'undefined') {
+      window.location.href = chatUrl;
+    } else {
+      chatWindow.focus();
+    }
+  };
 
   return (
     <div className="fixed right-6 bottom-6 z-50 flex flex-col items-end gap-3">
@@ -39,11 +54,11 @@ const FloatingActions = () => {
 
       <button
         type="button"
-        onClick={() => alert(t.common.chatComingSoon)}
+        onClick={openChatbot}
         className="inline-flex items-center gap-2 rounded-full bg-orange-600 px-5 py-3 text-sm font-bold text-white shadow-2xl shadow-orange-500/40 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-300 animate-chat-bounce transition-colors duration-200"
         aria-label="Chat with AI"
       >
-        <span>{t.common.chatComingSoon}</span>
+        <span>{t.common.chatWithAi}</span>
       </button>
     </div>
   );
