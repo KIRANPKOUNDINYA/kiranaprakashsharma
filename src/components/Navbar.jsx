@@ -6,7 +6,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { t } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -121,7 +121,7 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Drawer Menu */}
-      <div className={`lg:hidden bg-orange-700 overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className={`lg:hidden bg-orange-700 overflow-hidden transition-[max-height,opacity] duration-300 ease-out ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           {navLinks.map((link) => (
             link.isPage ? (
@@ -144,6 +144,26 @@ const Navbar = () => {
               </a>
             )
           ))}
+
+          <div className="mt-3 px-3 pt-3 border-t border-orange-600">
+            <p className="text-sm font-medium text-orange-100 mb-2">{t.home.englishLabel}/{t.home.kannadaLabel}</p>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setLanguage('ENGLISH')}
+                className={`w-full rounded-md py-2 text-sm font-bold transition ${language === 'ENGLISH' ? 'bg-white text-orange-700' : 'bg-orange-600 text-white hover:bg-orange-500'}`}
+              >
+                {t.home.englishLabel}
+              </button>
+              <button
+                type="button"
+                onClick={() => setLanguage('KANNADA')}
+                className={`w-full rounded-md py-2 text-sm font-bold transition ${language === 'KANNADA' ? 'bg-white text-orange-700' : 'bg-orange-600 text-white hover:bg-orange-500'}`}
+              >
+                {t.home.kannadaLabel}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
