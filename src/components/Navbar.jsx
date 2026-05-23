@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLanguage } from '../LanguageContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -48,14 +50,14 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { name: 'Home', href: '/', isPage: true },
-    { name: 'About us', href: '/#about', isPage: false },
-    { name: 'Pooja list', href: '/#pooja-list', isPage: false },
-    { name: 'Review', href: '/#review', isPage: false },
-    { name: 'Images (Shuba)', href: '/shuba', isPage: true },
-    { name: 'Images (Ashuba)', href: '/ashuba', isPage: true },
-    { name: 'Location', href: '/#location', isPage: false },
-    { name: 'Contact', href: '/#contact', isPage: false },
+    { name: t.common.home, href: '/', isPage: true },
+    { name: t.common.aboutUs, href: '/#about', isPage: false },
+    { name: t.common.poojaList, href: '/#pooja-list', isPage: false },
+    { name: t.common.review, href: '/#review', isPage: false },
+    { name: t.common.imagesShuba, href: '/shuba', isPage: true },
+    { name: t.common.imagesAshuba, href: '/ashuba', isPage: true },
+    { name: t.common.location, href: '/#location', isPage: false },
+    { name: t.common.contact, href: '/#contact', isPage: false },
   ];
 
   return (
@@ -66,10 +68,10 @@ const Navbar = () => {
           {/* Logo / Brand Name */}
           <Link to="/" className="flex-shrink-0 flex flex-col justify-center hover:opacity-80 transition cursor-pointer">
             <span className="font-bold text-xl tracking-wide leading-tight">
-              Kiranaprakashsharma9
+              {t.common.brandName}
             </span>
             <span className="text-sm text-orange-200 font-medium tracking-wider">
-              Srirangapatana Purohit
+              {t.common.brandSubtitle}
             </span>
           </Link>
           

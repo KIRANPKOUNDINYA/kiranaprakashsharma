@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from '../LanguageContext';
 
 // Image imports
 import img1 from '../assets/shuba/Gruhapravesha_pooja.jpeg';
@@ -15,6 +16,7 @@ import img10 from '../assets/shuba/Gruhapravesha_pooja9.jpeg';
 
 const Shuba = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   
   // --- NEW: State to track which image is currently open in full screen ---
   // null means the gallery is closed. A number (0-9) means that specific image is open.
@@ -76,8 +78,8 @@ const Shuba = () => {
 
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-base text-orange-600 font-bold tracking-widest uppercase">Shuba Events</h2>
-          <p className="mt-2 text-4xl font-extrabold text-gray-900">Auspicious Ceremonies</p>
+          <h2 className="text-base text-orange-600 font-bold tracking-widest uppercase">{t.shuba.headerTitle}</h2>
+          <p className="mt-2 text-4xl font-extrabold text-gray-900">{t.shuba.headerSubTitle}</p>
           <div className="mt-4 w-24 h-1.5 bg-orange-600 mx-auto rounded-full"></div>
         </div>
 
@@ -121,6 +123,7 @@ const Shuba = () => {
           {/* Close Button (Top Right) */}
           <button 
             onClick={closeLightbox}
+            aria-label={t.shuba.lightboxCloseAria}
             className="absolute top-4 right-4 sm:top-8 sm:right-8 text-white/70 hover:text-white p-2 z-[110] transition-colors"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -131,6 +134,7 @@ const Shuba = () => {
           {/* Left Arrow */}
           <button 
             onClick={showPrev}
+            aria-label={t.shuba.prevArrowAria}
             className="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white hover:bg-white/10 p-2 sm:p-4 rounded-full z-[110] transition-all"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,6 +164,7 @@ const Shuba = () => {
           {/* Right Arrow */}
           <button 
             onClick={showNext}
+            aria-label={t.shuba.nextArrowAria}
             className="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 text-white/70 hover:text-white hover:bg-white/10 p-2 sm:p-4 rounded-full z-[110] transition-all"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">

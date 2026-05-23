@@ -1,7 +1,9 @@
 import React from 'react';
+import { useLanguage } from '../LanguageContext';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { t } = useLanguage();
 
   // Function to handle smooth scrolling to the top
   const scrollToTop = (e) => {
@@ -31,11 +33,11 @@ const Footer = () => {
 
         {/* Copyright Section */}
         <div className="text-center text-sm text-orange-100 flex flex-col gap-2 mb-6">
-          <p>&copy; {currentYear} Kiranaprakashsharma9. All rights reserved.</p>
+          <p>&copy; {currentYear} {t.common.brandName}. {t.common.allRightsReserved}</p>
           
           {/* Credits Section */}
           <p className="text-xs sm:text-sm text-orange-200">
-            Designed & Developed By{' '}
+            {t.common.designedBy}{' '}
             <a 
               href="https://kiranpkoundinya.github.io/Portfolio/" 
               target="_blank" 
@@ -64,7 +66,7 @@ const Footer = () => {
           <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
           </svg>
-          Back to Top
+          {t.common.backToTop}
         </button>
 
       </div>

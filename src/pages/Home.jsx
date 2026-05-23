@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import bgImage from '../assets/Koundinya_maharshi.jpeg'; 
+import bgImage from '../assets/Koundinya_maharshi.jpeg';
+import { useLanguage } from '../LanguageContext';
 
 const Home = () => {
-  const [language, setLanguage] = useState('ENGLISH'); 
+  const { language, setLanguage, t } = useLanguage();
 
   return (
     <div 
@@ -24,13 +25,13 @@ const Home = () => {
             to="/shuba"
             className="px-2 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-base font-bold rounded-md transition text-orange-700 hover:bg-orange-100 text-center"
           >
-            Shuba
+            {t.home.topLinkShuba}
           </Link>
           <Link 
             to="/ashuba"
             className="px-2 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-base font-bold rounded-md transition text-orange-700 hover:bg-orange-100 text-center"
           >
-            Ashuba
+            {t.home.topLinkAshuba}
           </Link>
         </div>
 
@@ -40,13 +41,13 @@ const Home = () => {
             onClick={() => setLanguage('ENGLISH')}
             className={`px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-sm font-bold rounded-md transition ${language === 'ENGLISH' ? 'bg-orange-600 text-white' : 'text-orange-700 hover:bg-orange-100'}`}
           >
-            ENGLISH
+            {t.home.englishLabel}
           </button>
           <button 
             onClick={() => setLanguage('KANNADA')}
             className={`px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-sm font-bold rounded-md transition ${language === 'KANNADA' ? 'bg-orange-600 text-white' : 'text-orange-700 hover:bg-orange-100'}`}
           >
-            KANNADA
+            {t.home.kannadaLabel}
           </button>
         </div>
       </div>
@@ -55,24 +56,24 @@ const Home = () => {
       <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col items-center text-center">
         
         <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl drop-shadow-md mt-16 sm:mt-0">
-          <span className="block text-orange-600 mt-2">Authentic Vedic Rituals</span>
-          <span className="block text-orange-600 mt-2">& Astrological Guidance</span>
+          <span className="block text-orange-600 mt-2">{t.home.heroTitleLine1}</span>
+          <span className="block text-orange-600 mt-2">{t.home.heroTitleLine2}</span>
         </h1>
         
         <p className="mt-3 max-w-md mx-auto text-base font-bold text-gray-900 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl drop-shadow-md">
-          Authentic Vedic rituals and expert astrological guidance for a peaceful, prosperous life.
+          {t.home.heroDescription}
         </p>
         
         {/* Call to Action Buttons */}
         <div className="mt-10 sm:flex sm:justify-center">
           <div className="rounded-md shadow-xl">
             <a href="tel:+919513311293" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-md text-white bg-orange-600 hover:bg-orange-700 md:py-4 md:text-lg transition transform hover:-translate-y-1">
-              Book a Consultation
+              {t.home.ctaBook}
             </a>
           </div>
           <div className="mt-3 sm:mt-0 sm:ml-3 shadow-xl rounded-md">
             <a href="#pooja-list" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-md text-orange-700 bg-white hover:bg-orange-50 md:py-4 md:text-lg transition transform hover:-translate-y-1">
-              View Services
+              {t.home.ctaView}
             </a>
           </div>
         </div>

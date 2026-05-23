@@ -1,14 +1,16 @@
 import React from 'react';
+import { useLanguage } from '../LanguageContext';
 
 const Contact = () => {
+  const { t } = useLanguage();
   return (
     <div id="contact" className="py-20 bg-orange-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-lg font-bold tracking-wide uppercase">Get in Touch</h2>
-          <p className="mt-2 text-3xl font-extrabold text-gray-900">Contact Us for Poojas & Consultations</p>
+          <h2 className="text-lg font-bold tracking-wide uppercase">{t.contact.headerTitle}</h2>
+          <p className="mt-2 text-3xl font-extrabold text-gray-900">{t.contact.headerSubTitle}</p>
           <div className="mt-4 w-24 h-1 bg-orange-600 mx-auto rounded-full"></div>
         </div>
 
@@ -16,10 +18,9 @@ const Contact = () => {
           
           {/* Left Column: Direct Contact Information */}
           <div className="bg-white rounded-3xl p-8 shadow-md border-t-4 border-orange-600">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">Direct Contact Details</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">{t.contact.directContactDetails}</h3>
 
             <div className="space-y-8">
-              {/* Name */}
               <div className="flex items-center">
                 <div className="flex-shrink-0 bg-orange-100 p-4 rounded-full">
                   <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -27,12 +28,11 @@ const Contact = () => {
                   </svg>
                 </div>
                 <div className="ml-6">
-                  <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Purohit Name</p>
-                  <p className="text-xl font-bold text-gray-900 mt-1">Kiranaprakash sharma</p>
+                  <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">{t.contact.purohitNameLabel}</p>
+                  <p className="text-xl font-bold text-gray-900 mt-1">{t.contact.purohitName}</p>
                 </div>
               </div>
 
-              {/* Mobile */}
               <div className="flex items-center">
                 <div className="flex-shrink-0 bg-orange-100 p-4 rounded-full">
                   <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,13 +40,12 @@ const Contact = () => {
                   </svg>
                 </div>
                 <div className="ml-6">
-                  <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Mobile Numbers</p>
-                  <p className="text-xl font-bold text-gray-900 mt-1">95133 11293</p>
-                  <p className="text-xl font-bold text-gray-900">79750 49234</p>
+                  <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">{t.contact.mobileNumbersLabel}</p>
+                  <p className="text-xl font-bold text-gray-900 mt-1">{t.contact.phone1}</p>
+                  <p className="text-xl font-bold text-gray-900">{t.contact.phone2}</p>
                 </div>
               </div>
 
-              {/* Email */}
               <div className="flex items-center">
                 <div className="flex-shrink-0 bg-orange-100 p-4 rounded-full">
                   <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -54,9 +53,9 @@ const Contact = () => {
                   </svg>
                 </div>
                 <div className="ml-6">
-                  <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">Mail-ID</p>
-                  <a href="mailto:kiranaprakashsharma9@gmail.com" className="text-lg sm:text-xl font-bold text-orange-600 hover:text-orange-700 transition mt-1 block break-all">
-                    kiranaprakashsharma9@gmail.com
+                  <p className="text-sm font-medium text-gray-500 uppercase tracking-wide">{t.contact.emailsLabel}</p>
+                  <a href={`mailto:${t.contact.emailAddress}`} className="text-lg sm:text-xl font-bold text-orange-600 hover:text-orange-700 transition mt-1 block break-all">
+                    {t.contact.emailAddress}
                   </a>
                 </div>
               </div>

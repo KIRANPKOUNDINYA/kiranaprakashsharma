@@ -1,32 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useLanguage } from '../LanguageContext';
 
 const Reviews = () => {
-  const reviews = [
-    {
-      name: "Ramesh Sharma",
-      service: "Gruhapravesha Pooja",
-      rating: 4,
-      text: "The dedication Kiranaprakashsharma showed during our new home warming was remarkable. He arrived punctually and meticulously explained the significance of every ritual, creating a profoundly sacred and positive atmosphere in our house.",
-    },
-    {
-      name: "Priya V.",
-      service: "Tila Homa & Ancestral Rites",
-      rating: 5,
-      text: "Performing annual rites for my parents felt seamless under his guidance on the Kaveri banks. His deep scriptural knowledge and compassionate support provided our family immense emotional closure and peace.",
-    },
-    {
-      name: "Dr. L. Patel",
-      service: "Marriage Pooja",
-      rating: 5,
-      text: "Kiranaprakashsharma was the officiant for our Vedic wedding. The ceremony was sweet, sincere, and systematic. All our guests, including those new to Indian traditions, were engaged by his beautiful explanations in English.",
-    },
-    {
-      name: "Smrithi V.",
-      service: "Astrology Consultation",
-      rating: 4.5,
-      text: "I had a very insightful session. Kiranaprakashsharma listened carefully to my concerns and provided practical, thoughtful guidance based on my chart. The predictions felt extremely relevant to my current life path.",
-    }
-  ];
+  const { t } = useLanguage();
+  const reviews = t.reviews.items;
 
   const scrollRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -102,8 +79,8 @@ const Reviews = () => {
         
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-lg text-gray-900 font-bold tracking-wide uppercase">Client Testimonials</h2>
-          <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">Voices of Blessed Families</p>
+          <h2 className="text-lg text-gray-900 font-bold tracking-wide uppercase">{t.reviews.headerTitle}</h2>
+          <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">{t.reviews.headerSubTitle}</p>
           <div className="mt-4 w-24 h-1 bg-orange-600 mx-auto rounded-full"></div>
         </div>
 
@@ -114,7 +91,7 @@ const Reviews = () => {
           <button 
             onClick={scrollLeft}
             className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 z-10 bg-white text-orange-600 p-3 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition hidden md:block focus:outline-none"
-            aria-label="Scroll Left"
+            aria-label={t.reviews.scrollLeftAria}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -157,7 +134,7 @@ const Reviews = () => {
           <button 
             onClick={scrollRight}
             className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 z-10 bg-white text-orange-600 p-3 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition hidden md:block focus:outline-none"
-            aria-label="Scroll Right"
+            aria-label={t.reviews.scrollRightAria}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
