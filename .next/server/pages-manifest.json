@@ -1,0 +1,13 @@
+{
+  "/About": "pages/About.js",
+  "/Ashuba": "pages/Ashuba.js",
+  "/Contact": "pages/Contact.js",
+  "/Home": "pages/Home.js",
+  "/Location": "pages/Location.js",
+  "/Reviews": "pages/Reviews.js",
+  "/Services": "pages/Services.js",
+  "/Shuba": "pages/Shuba.js",
+  "/_app": "pages/_app.js",
+  "/_document": "pages/_document.js",
+  "/_error": "pages/_error.js"
+}

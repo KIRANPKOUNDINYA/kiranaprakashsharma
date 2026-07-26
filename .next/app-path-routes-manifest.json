@@ -1,0 +1,14 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/ashuba/page": "/ashuba",
+  "/contact/page": "/contact",
+  "/favicon.ico/route": "/favicon.ico",
+  "/home/page": "/home",
+  "/location/page": "/location",
+  "/page": "/",
+  "/reviews/page": "/reviews",
+  "/services/page": "/services",
+  "/shuba/page": "/shuba"
+}

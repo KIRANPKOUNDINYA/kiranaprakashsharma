@@ -1,0 +1,7 @@
+__turbopack_load_page_chunks__("/Shuba", [
+  "static/chunks/3_7_e79l-np8d.js",
+  "static/chunks/266l8uwchrkkw.js",
+  "static/chunks/3d-29q6w9rxdc.js",
+  "static/chunks/0p1b09hx60x7f.js",
+  "static/chunks/turbopack-02d5go2j9ekn5.js"
+])
