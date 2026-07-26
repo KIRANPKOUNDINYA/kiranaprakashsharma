@@ -1,4 +1,4 @@
-﻿import Ashuba from "@/pages/Ashuba";
+﻿import Ashuba from "@/sections/Ashuba";
 
 export const metadata = {
   title: "Ashuba Ceremonies",

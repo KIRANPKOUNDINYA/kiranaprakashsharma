@@ -1,1 +1,0 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,36300,a=>{a.q("/kiranaprakashsharma/_next/static/media/Koundinya_maharshi.0q8mqrfigcqz8.jpeg")}]);

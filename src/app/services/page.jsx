@@ -1,4 +1,4 @@
-import Services from "@/pages/Services";
+import Services from "@/sections/Services";
 
 export const metadata = {
   title: "Purohit Services",

@@ -1,11 +1,11 @@
-import Home from "@/pages/Home";
-import About from "@/pages/About";
-import Services from "@/pages/Services";
-import Reviews from "@/pages/Reviews";
-import Shuba from "@/pages/Shuba";
-import Ashuba from "@/pages/Ashuba";
-import Location from "@/pages/Location";
-import Contact from "@/pages/Contact";
+import Home from "@/sections/Home";
+import About from "@/sections/About";
+import Services from "@/sections/Services";
+import Reviews from "@/sections/Reviews";
+import Shuba from "@/sections/Shuba";
+import Ashuba from "@/sections/Ashuba";
+import Location from "@/sections/Location";
+import Contact from "@/sections/Contact";
 
 export const metadata = {
   title: "Kiranaprakashsharma | Authentic Vedic Purohit in Srirangapatna",
