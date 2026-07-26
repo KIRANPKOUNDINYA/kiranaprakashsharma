@@ -206,7 +206,7 @@ const translations = {
   KANNADA: {
     common: {
       brandName: 'Kiranaprakashsharma9',
-      brandSubtitle: 'ಶ್ರೀರಂಗಪಟ್ಟಣ ಪುಜಾರಿ',
+      brandSubtitle: 'ಶ್ರೀರಂಗಪಟ್ಟಣ ಪುರೋಹಿತ್',
       home: 'ಮುಖಪುಟ',
       aboutUs: 'ನಮ್ಮ ಬಗ್ಗೆ',
       poojaList: 'ಪೂಜೆ ಪಟ್ಟಿ',

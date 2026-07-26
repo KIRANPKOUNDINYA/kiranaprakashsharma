@@ -1,12 +1,14 @@
+"use client";
+
 import React from 'react';
-import { useLanguage } from '../LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Services = () => {
   const { t } = useLanguage();
   const poojas = t.services.poojas;
 
   return (
-    <div id="pooja-list" className="py-20 bg-orange-50">
+    <div id="services" className="py-20 bg-orange-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
