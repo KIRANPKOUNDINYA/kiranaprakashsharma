@@ -1,4 +1,4 @@
-﻿import Contact from "@/pages/Contact";
+﻿import Contact from "@/sections/Contact";
 
 export const metadata = {
   title: "Contact Kiranaprakashsharma",

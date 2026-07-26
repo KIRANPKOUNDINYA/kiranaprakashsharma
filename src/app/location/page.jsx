@@ -1,4 +1,4 @@
-﻿import Location from "@/pages/Location";
+﻿import Location from "@/sections/Location";
 
 export const metadata = {
   title: "Location Details",

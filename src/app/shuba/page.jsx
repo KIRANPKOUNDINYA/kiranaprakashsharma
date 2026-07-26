@@ -1,4 +1,4 @@
-import Shuba from "@/pages/Shuba";
+import Shuba from "@/sections/Shuba";
 
 export const metadata = {
   title: "Shuba Ceremonies",

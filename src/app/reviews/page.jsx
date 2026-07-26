@@ -1,4 +1,4 @@
-﻿import Reviews from "@/pages/Reviews";
+﻿import Reviews from "@/sections/Reviews";
 
 export const metadata = {
   title: "Customer Reviews",
