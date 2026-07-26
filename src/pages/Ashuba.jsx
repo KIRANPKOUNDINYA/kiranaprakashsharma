@@ -1,33 +1,31 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useLanguage } from '../LanguageContext';
+import { useRouter } from 'next/navigation';
+import { useLanguage } from '@/context/LanguageContext';
 
 // 1. Import the images directly from the assets folder
-// Ensure these filenames exactly match what is in your src/assets/ashuba folder
-import img1 from '../assets/ashuba/pindapradana.jpeg'; 
-import img2 from '../assets/ashuba/Tarpana.jpeg';
-import img3 from '../assets/ashuba/Tilahome.jpeg';
+import img1 from '@/assets/ashuba/pindapradana.jpeg'; 
+import img2 from '@/assets/ashuba/Tarpana.jpeg';
+import img3 from '@/assets/ashuba/Tilahome.jpeg';
 
-const Ashuba = () => {
-  const navigate = useNavigate();
+const Ashuba = ({ showBackButton = true }) => {
+  const router = useRouter();
   const { t } = useLanguage();
 
-  // --- State to track which image is currently open in full screen ---
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  // 2. Use the imported variables instead of string paths
   const ashubaImages = [
     { id: 5, title: 'Pindapradana', src: img1 }, 
     { id: 6, title: 'Tarpana', src: img2 },
     { id: 7, title: 'Tila Homa', src: img3 },
   ];
 
-  // --- Navigation Functions for the Lightbox ---
   const openLightbox = (index) => setSelectedIndex(index);
   const closeLightbox = () => setSelectedIndex(null);
 
   const showPrev = (e) => {
-    e.stopPropagation(); // Prevents the click from closing the background
+    e.stopPropagation();
     setSelectedIndex((prev) => (prev === 0 ? ashubaImages.length - 1 : prev - 1));
   };
 
@@ -36,7 +34,6 @@ const Ashuba = () => {
     setSelectedIndex((prev) => (prev === ashubaImages.length - 1 ? 0 : prev + 1));
   };
 
-  // --- Keyboard support (Esc to close, Arrows to navigate) ---
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (selectedIndex === null) return;
@@ -53,21 +50,23 @@ const Ashuba = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* --- Back Button --- */}
-        <button 
-          onClick={() => navigate(-1)}
-          className="mb-8 flex items-center justify-center w-10 h-10 rounded-full bg-white text-orange-600 hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-sm group border border-orange-100"
-          aria-label="Go back"
-        >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            className="h-6 w-6 transform group-hover:-translate-x-1 transition-transform" 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
+        {showBackButton && (
+          <button 
+            onClick={() => router.back()}
+            className="mb-8 flex items-center justify-center w-10 h-10 rounded-full bg-white text-orange-600 hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-sm group border border-orange-100"
+            aria-label="Go back"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              className="h-6 w-6 transform group-hover:-translate-x-1 transition-transform" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+        )}
 
         {/* Header */}
         <div className="text-center mb-16">
@@ -81,12 +80,12 @@ const Ashuba = () => {
           {ashubaImages.map((image, index) => (
             <div 
               key={image.id} 
-              onClick={() => openLightbox(index)} // Opens the clicked image
+              onClick={() => openLightbox(index)}
               className="group relative rounded-xl sm:rounded-2xl overflow-hidden shadow-md border-2 border-transparent hover:border-orange-400 transition-all duration-300 cursor-pointer"
             >
               <div className="bg-white relative aspect-square sm:aspect-video overflow-hidden">
                 <img 
-                  src={image.src} 
+                  src={(image.src && image.src.src) ? image.src.src : image.src} 
                   alt={image.title} 
                   className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500" 
                 />
@@ -110,7 +109,7 @@ const Ashuba = () => {
       {selectedIndex !== null && (
         <div 
           className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 sm:p-8"
-          onClick={closeLightbox} // Clicking the dark background closes the gallery
+          onClick={closeLightbox}
         >
           {/* Close Button (Top Right) */}
           <button 
@@ -137,14 +136,13 @@ const Ashuba = () => {
           {/* Main Image Container */}
           <div 
             className="relative max-w-5xl max-h-full flex flex-col items-center"
-            onClick={(e) => e.stopPropagation()} // Prevents clicking the image from closing the gallery
+            onClick={(e) => e.stopPropagation()}
           >
             <img 
-              src={ashubaImages[selectedIndex].src} 
+              src={(ashubaImages[selectedIndex].src && ashubaImages[selectedIndex].src.src) ? ashubaImages[selectedIndex].src.src : ashubaImages[selectedIndex].src} 
               alt={ashubaImages[selectedIndex].title} 
               className="max-h-[80vh] w-auto object-contain rounded-lg shadow-2xl select-none"
             />
-            {/* Title below the image */}
             <h3 className="text-white text-lg sm:text-2xl font-bold mt-4 tracking-wide">
               {ashubaImages[selectedIndex].title}
             </h3>

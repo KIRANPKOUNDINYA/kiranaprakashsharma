@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from 'react';
-import { useLanguage } from '../LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Reviews = () => {
   const { t } = useLanguage();
@@ -8,17 +10,13 @@ const Reviews = () => {
   const scrollRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Auto-scrolling logic using requestAnimationFrame for smooth continuous movement
   useEffect(() => {
     let animationFrameId;
     const scrollContainer = scrollRef.current;
 
     const scroll = () => {
       if (!isPaused && scrollContainer) {
-        scrollContainer.scrollLeft += 1; // Adjust this number to change scroll speed
-        
-        // Seamless infinite loop: Reset scroll to 0 when we reach the halfway point 
-        // (since we duplicated the array to fake the infinite effect)
+        scrollContainer.scrollLeft += 1;
         if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
           scrollContainer.scrollLeft = 0;
         }
@@ -27,14 +25,11 @@ const Reviews = () => {
     };
 
     animationFrameId = requestAnimationFrame(scroll);
-
     return () => cancelAnimationFrame(animationFrameId);
   }, [isPaused]);
 
-  // Functions for manual arrow scrolling
   const scrollLeft = () => {
     if (scrollRef.current) {
-      // 382px matches the width of the card (350px) + the gap (32px or 2rem)
       scrollRef.current.scrollBy({ left: -382, behavior: 'smooth' });
     }
   };
@@ -64,7 +59,6 @@ const Reviews = () => {
 
   return (
     <div id="review" className="py-24 bg-white relative">
-      {/* Hide scrollbar for a cleaner look */}
       <style>{`
         .hide-scrollbar::-webkit-scrollbar {
           display: none;
@@ -76,18 +70,13 @@ const Reviews = () => {
       `}</style>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        
-        {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-lg text-gray-900 font-bold tracking-wide uppercase">{t.reviews.headerTitle}</h2>
           <p className="mt-2 text-4xl font-extrabold text-gray-900 sm:text-5xl">{t.reviews.headerSubTitle}</p>
           <div className="mt-4 w-24 h-1 bg-orange-600 mx-auto rounded-full"></div>
         </div>
 
-        {/* Outer container with Arrows */}
         <div className="relative group">
-          
-          {/* Left Arrow Button */}
           <button 
             onClick={scrollLeft}
             className="absolute left-0 top-1/2 -translate-y-1/2 -ml-4 z-10 bg-white text-orange-600 p-3 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition hidden md:block focus:outline-none"
@@ -98,17 +87,14 @@ const Reviews = () => {
             </svg>
           </button>
 
-          {/* Scrolling inner container */}
           <div 
             ref={scrollRef}
-            // Mouse events for Desktop, Touch events for Mobile tap-and-hold
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             onTouchStart={() => setIsPaused(true)}
             onTouchEnd={() => setIsPaused(false)}
             className="flex space-x-8 overflow-x-hidden hide-scrollbar py-4"
           >
-            {/* Render reviews twice for seamless looping */}
             {[...reviews, ...reviews].map((review, index) => (
               <div
                 key={index}
@@ -130,7 +116,6 @@ const Reviews = () => {
             ))}
           </div>
 
-          {/* Right Arrow Button */}
           <button 
             onClick={scrollRight}
             className="absolute right-0 top-1/2 -translate-y-1/2 -mr-4 z-10 bg-white text-orange-600 p-3 rounded-full shadow-md hover:bg-orange-600 hover:text-white transition hidden md:block focus:outline-none"
@@ -140,7 +125,6 @@ const Reviews = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
             </svg>
           </button>
-
         </div>
       </div>
     </div>

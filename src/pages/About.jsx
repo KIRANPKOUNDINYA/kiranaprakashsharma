@@ -1,8 +1,10 @@
+"use client";
+
 import React, { useState, useEffect, useRef } from 'react';
-import { useLanguage } from '../LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 // 1. Import the images directly from the assets folder
-import aboutImage from '../assets/positive_and_negatives.jpg';
-import bgImage from '../assets/kiranimage.png'; // Your photo
+import aboutImage from '@/assets/positive_and_negatives.jpg';
+import bgImage from '@/assets/kiranimage.png'; // Your photo
 
 // --- Custom Animated Counter Component ---
 const AnimatedCounter = ({ end, duration = 2000, suffix = "+" }) => {
@@ -10,16 +12,15 @@ const AnimatedCounter = ({ end, duration = 2000, suffix = "+" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const countRef = useRef(null);
 
-  // 1. Detect when the element scrolls into view
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect(); // Stop observing once it triggers (only animate once)
+          observer.disconnect();
         }
       },
-      { threshold: 0.1 } // Trigger when at least 10% of it is visible
+      { threshold: 0.1 }
     );
 
     if (countRef.current) {
@@ -28,18 +29,14 @@ const AnimatedCounter = ({ end, duration = 2000, suffix = "+" }) => {
     return () => observer.disconnect();
   }, []);
 
-  // 2. Run the smooth counting animation
   useEffect(() => {
     if (isVisible) {
       let startTimestamp = null;
       const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        
-        // Easing function for a smooth slow-down at the end
         const easeOutQuart = 1 - Math.pow(1 - progress, 4);
         setCount(Math.floor(easeOutQuart * end));
-        
         if (progress < 1) {
           window.requestAnimationFrame(step);
         }
@@ -62,7 +59,7 @@ const About = () => {
         {/* --- Top Featured Image using local asset --- */}
         <div className="mb-12 sm:mb-16 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl border-2 sm:border-4 border-orange-50">
           <img 
-            src={aboutImage} 
+            src={aboutImage?.src ?? aboutImage} 
             alt="Kiranaprakashsharma - Srirangapatana Purohit" 
             className="w-full h-auto object-cover object-top max-h-[300px] sm:max-h-[500px] md:max-h-[600px]"
           />
@@ -74,7 +71,7 @@ const About = () => {
           {/* Image placed above the text */}
           <div className="mb-10 flex justify-center">
             <img 
-              src={bgImage} 
+              src={bgImage?.src ?? bgImage} 
               alt="Kiranaprakashsharma" 
               className="rounded-3xl shadow-xl max-h-[450px] w-full sm:w-auto object-cover border-4 border-orange-50"
             />
@@ -167,7 +164,7 @@ const About = () => {
           {/* Feature 4 */}
           <div className="bg-white p-6 rounded-xl border border-orange-100 shadow-sm hover:shadow-md transition">
             <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-orange-100 text-orange-600 mb-4">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
             </div>
             <h4 className="text-xl font-bold text-gray-900 mb-2">{t.about.features[3].title}</h4>
             <p className="text-gray-600">{t.about.features[3].description}</p>
