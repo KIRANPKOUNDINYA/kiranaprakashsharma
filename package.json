@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "deploy": "next build && gh-pages -d out -t true",
+    "deploy": "next build && gh-pages -d out --dotfiles",
     "start": "next start",
     "lint": "eslint"
   },
+
   "dependencies": {
     "next": "16.2.12",
     "react": "19.2.4",
