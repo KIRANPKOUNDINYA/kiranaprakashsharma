@@ -4,11 +4,26 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
+import { supabase } from "@/lib/supabaseClient";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsAdminLoggedIn(!!session);
+    });
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAdminLoggedIn(!!session);
+    });
+
+    return () => listener.subscription.unsubscribe();
+  }, []);
+
   useEffect(() => {
     if (!window.location.hash) return;
 
@@ -106,7 +121,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex space-x-6">
+          <div className="hidden lg:flex items-center space-x-6">
             {navLinks.map((link) =>
               link.isPage ? (
                 <Link
@@ -128,6 +143,13 @@ const Navbar = () => {
                 </a>
               ),
             )}
+
+            <Link
+              href={isAdminLoggedIn ? "/admin/dashboard" : "/admin/login"}
+              className="ml-2 pl-4 border-l border-orange-400 text-sm font-semibold text-orange-100 hover:text-white transition"
+            >
+              {isAdminLoggedIn ? "Dashboard" : "Admin Login"}
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -196,6 +218,14 @@ const Navbar = () => {
               </a>
             ),
           )}
+
+          <Link
+            href={isAdminLoggedIn ? "/admin/dashboard" : "/admin/login"}
+            onClick={() => setIsOpen(false)}
+            className="block px-3 py-2 rounded-md text-base font-semibold text-orange-100 hover:bg-orange-600 hover:text-white transition border-t border-orange-600 mt-1 pt-3"
+          >
+            {isAdminLoggedIn ? "Admin Dashboard" : "Admin Login"}
+          </Link>
 
           <div className="mt-3 px-3 pt-3 border-t border-orange-600">
             <p className="text-sm font-medium text-orange-100 mb-2">
