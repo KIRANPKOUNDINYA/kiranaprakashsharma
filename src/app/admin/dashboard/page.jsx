@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { supabase } from "@/lib/supabaseClient";
 import { useAdminSession } from "@/hooks/useAdminSession";
+import { FiEdit3, FiTrash2 } from "react-icons/fi";
 
 const CATEGORIES = [
   { key: "shuba", label: "Shuba (Auspicious Poojas)" },
@@ -20,6 +21,10 @@ export default function AdminDashboardPage() {
   const [caption, setCaption] = useState("");
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState(null);
+  const [editingImage, setEditingImage] = useState(null);
+  const [editCaption, setEditCaption] = useState("");
+  const [editFile, setEditFile] = useState(null);
+  const [updatingImage, setUpdatingImage] = useState(false);
 
   useEffect(() => {
     if (status === "admin") loadImages();
@@ -90,6 +95,69 @@ export default function AdminDashboardPage() {
     await supabase.storage.from("gallery").remove([image.storage_path]);
     await supabase.from("gallery_images").delete().eq("id", image.id);
     loadImages();
+  }
+
+  function startEdit(image) {
+    setEditingImage(image);
+    setEditCaption(image.caption || "");
+    setEditFile(null);
+    setMessage(null);
+  }
+
+  async function handleUpdateImage(e) {
+    e.preventDefault();
+    if (!editingImage) return;
+
+    setUpdatingImage(true);
+    setMessage(null);
+
+    try {
+      let imageUrl = editingImage.image_url;
+      let storagePath = editingImage.storage_path;
+
+      if (editFile) {
+        const safeName = editFile.name.replace(/\s+/g, "-").toLowerCase();
+        const newPath = `${category}/${Date.now()}-${safeName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("gallery")
+          .upload(newPath, editFile);
+
+        if (uploadError) {
+          throw new Error(uploadError.message);
+        }
+
+        const { data: publicUrlData } = supabase.storage
+          .from("gallery")
+          .getPublicUrl(newPath);
+
+        imageUrl = publicUrlData.publicUrl;
+        storagePath = newPath;
+      }
+
+      const { error: updateError } = await supabase
+        .from("gallery_images")
+        .update({
+          caption: editCaption || null,
+          image_url: imageUrl,
+          storage_path: storagePath,
+        })
+        .eq("id", editingImage.id);
+
+      if (updateError) {
+        throw new Error(updateError.message);
+      }
+
+      setMessage({ type: "success", text: "Image updated." });
+      setEditingImage(null);
+      setEditCaption("");
+      setEditFile(null);
+      loadImages();
+    } catch (error) {
+      setMessage({ type: "error", text: error.message || "Failed to update image." });
+    } finally {
+      setUpdatingImage(false);
+    }
   }
 
   async function handleSignOut() {
@@ -186,6 +254,64 @@ export default function AdminDashboardPage() {
         </p>
       )}
 
+      {/* Edit form */}
+      {editingImage && (
+        <form
+          onSubmit={handleUpdateImage}
+          className="mb-8 rounded-xl border border-orange-200 bg-orange-50 p-4 shadow-sm"
+        >
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-sm font-semibold text-orange-700">Edit Image</h2>
+            <button
+              type="button"
+              onClick={() => {
+                setEditingImage(null);
+                setEditCaption("");
+                setEditFile(null);
+              }}
+              className="text-sm text-gray-600 hover:text-orange-700"
+            >
+              Cancel
+            </button>
+          </div>
+
+          <div className="space-y-3">
+            <div>
+              <label className="mb-1 block text-sm font-medium text-gray-700">
+                Replace Image (optional)
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setEditFile(e.target.files?.[0] || null)}
+                className="block w-full text-sm text-gray-600"
+              />
+            </div>
+
+            <div>
+              <label className="mb-1 block text-sm font-medium text-gray-700">
+                Caption
+              </label>
+              <input
+                type="text"
+                value={editCaption}
+                onChange={(e) => setEditCaption(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 text-gray-900"
+                placeholder="Optional"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={updatingImage}
+              className="rounded-md bg-orange-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-700 disabled:opacity-60"
+            >
+              {updatingImage ? "Updating..." : "Update Image"}
+            </button>
+          </div>
+        </form>
+      )}
+
       {/* Image grid */}
       {loadingImages ? (
         <p className="text-gray-500">Loading images...</p>
@@ -211,12 +337,20 @@ export default function AdminDashboardPage() {
                 <p className="text-xs text-gray-600 truncate">
                   {img.caption || "—"}
                 </p>
-                <button
-                  onClick={() => handleDelete(img)}
-                  className="mt-2 w-full text-xs text-red-600 hover:text-white hover:bg-red-600 border border-red-300 rounded py-1 transition"
-                >
-                  Delete
-                </button>
+                <div className="mt-2 flex gap-2">
+                  <button
+                    onClick={() => startEdit(img)}
+                    className="flex-1 flex items-center justify-center gap-1 text-xs text-orange-700 hover:bg-orange-50 border border-orange-300 rounded py-1 transition"
+                  >
+                    <FiEdit3 size={12} /> Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(img)}
+                    className="flex-1 flex items-center justify-center gap-1 text-xs text-red-600 hover:text-white hover:bg-red-600 border border-red-300 rounded py-1 transition"
+                  >
+                    <FiTrash2 size={12} /> Delete
+                  </button>
+                </div>
               </div>
             </div>
           ))}

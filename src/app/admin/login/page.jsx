@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import { FiCheck, FiEye, FiEyeOff } from "react-icons/fi";
 
 const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
@@ -15,6 +15,22 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const passwordRules = useMemo(() => {
+    const hasMinLength = password.length >= 12;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSymbol = /[^A-Za-z0-9]/.test(password);
+
+    return [
+      { label: "Minimum 12 characters", passed: hasMinLength },
+      { label: "At least 1 uppercase letter", passed: hasUppercase },
+      { label: "At least 1 lowercase letter", passed: hasLowercase },
+      { label: "At least 1 number", passed: hasNumber },
+      { label: "At least 1 symbol", passed: hasSymbol },
+    ];
+  }, [password]);
 
   const handleGoogleSignIn = async () => {
     setError("");
@@ -66,10 +82,12 @@ export default function AdminLoginPage() {
   return (
     <main className="min-h-[70vh] flex items-center justify-center bg-orange-50 px-4 py-10">
       <div className="w-full max-w-md rounded-2xl border border-orange-100 bg-white p-8 shadow-lg">
+        {error && <p className="mb-4 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-600">{error}</p>}
+
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-orange-700">Admin Login</h1>
           <p className="mt-2 text-sm text-gray-500">
-            Sign in with Google or use your email and password to access the admin dashboard.
+            Welcome kiranaprakashsharma9 Srirangapatana Purohit 🙏🏻.
           </p>
         </div>
 
@@ -106,6 +124,23 @@ export default function AdminLoginPage() {
                 {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
               </button>
             </div>
+
+            <ul className="mt-3 space-y-2 rounded-lg border border-orange-100 bg-orange-50/70 p-3 text-sm">
+              {passwordRules.map((rule) => (
+                <li key={rule.label} className="flex items-center gap-2">
+                  <span
+                    className={`flex h-5 w-5 items-center justify-center rounded-full ${
+                      rule.passed ? "bg-green-600 text-white" : "bg-gray-300 text-gray-600"
+                    }`}
+                  >
+                    <FiCheck size={12} />
+                  </span>
+                  <span className={rule.passed ? "text-green-700" : "text-gray-600"}>
+                    {rule.label}
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <button
@@ -149,7 +184,6 @@ export default function AdminLoginPage() {
           {googleLoading ? "Redirecting..." : "Sign in with Google"}
         </button>
 
-        {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
       </div>
     </main>
   );
